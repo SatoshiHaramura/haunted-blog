@@ -10,7 +10,9 @@ class BlogsController < ApplicationController
     @blogs = Blog.search(params[:term]).published.default_order
   end
 
-  def show; end
+  def show
+    authorize_user if @blog.secret
+  end
 
   def new
     @blog = Blog.new
