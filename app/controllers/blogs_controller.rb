@@ -55,11 +55,8 @@ class BlogsController < ApplicationController
   end
 
   def blog_params
-    filters = if current_user.premium?
-                %i[title content secret random_eyecatch]
-              else
-                %i[title content secret]
-              end
+    filters = %i[title content secret]
+    filters << %i[random_eyecatch] if current_user.premium?
     params.require(:blog).permit(filters)
   end
 end
